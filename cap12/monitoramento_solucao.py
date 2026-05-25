@@ -21,7 +21,7 @@ from typing import Optional
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException, Depends
 from fastapi.security.api_key import APIKeyHeader
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel
 
 load_dotenv()
 
@@ -41,7 +41,7 @@ async def auth(key: str = Depends(api_key_header)):
 
 class MonitorarRequest(BaseModel):
     temas: list[str]
-    email: str
+    email: str  # Ex: "usuario@dominio.com"
     intervalo_dias: int = 7
 
 

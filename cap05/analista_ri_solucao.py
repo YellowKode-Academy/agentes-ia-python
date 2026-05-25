@@ -11,8 +11,8 @@ from pathlib import Path
 from dotenv import load_dotenv
 from langchain_anthropic import ChatAnthropic
 from langchain_community.tools.tavily_search import TavilySearchResults
-from langchain.agents import create_react_agent, AgentExecutor
-from langchain import hub
+from langchain_classic.agents import create_react_agent, AgentExecutor
+from langchain_classic import hub
 
 from cap05.rag_tools import criar_retriever_de_pdf, criar_ferramenta_rag
 

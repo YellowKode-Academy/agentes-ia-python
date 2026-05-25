@@ -32,8 +32,8 @@ def _obter_ou_criar_agente(thread_id: str):
 
     from langchain_anthropic import ChatAnthropic
     from langchain_community.tools.tavily_search import TavilySearchResults
-    from langchain.agents import create_react_agent, AgentExecutor
-    from langchain import hub
+    from langchain_classic.agents import create_react_agent, AgentExecutor
+    from langchain_classic import hub
 
     llm = ChatAnthropic(model="claude-sonnet-4-6", max_retries=2)
     tools = [TavilySearchResults(max_results=2)]

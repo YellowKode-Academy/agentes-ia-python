@@ -4,8 +4,8 @@ Agente raciocina sobre incerteza e verificação, com análise do padrão de res
 """
 from dotenv import load_dotenv
 from langchain_anthropic import ChatAnthropic
-from langchain.agents import create_react_agent, AgentExecutor
-from langchain import hub
+from langchain_classic.agents import create_react_agent, AgentExecutor
+from langchain_classic import hub
 
 load_dotenv()
 

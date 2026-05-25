@@ -5,11 +5,11 @@ Ferramenta comparar_concorrentes: lê dois JSONs e retorna comparação estrutur
 import json
 from pathlib import Path
 from dotenv import load_dotenv
-from langchain.tools import tool
-from langchain.agents import create_react_agent, AgentExecutor
+from langchain_classic.tools import tool
+from langchain_classic.agents import create_react_agent, AgentExecutor
 from langchain_anthropic import ChatAnthropic
 from langchain_community.tools.tavily_search import TavilySearchResults
-from langchain import hub
+from langchain_classic import hub
 
 load_dotenv()
 

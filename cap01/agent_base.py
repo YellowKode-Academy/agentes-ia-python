@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
-from langchain.agents import create_react_agent
+from langchain_classic.agents import create_react_agent
 from langchain_anthropic import ChatAnthropic
-from langchain import hub
+from langchain_classic import hub
 
 load_dotenv()
 
@@ -15,7 +15,7 @@ def criar_agente():
 
 def perguntar(agent, texto: str) -> str:
     """Envia uma pergunta ao agente e retorna a resposta como texto."""
-    from langchain.agents import AgentExecutor
+    from langchain_classic.agents import AgentExecutor
     executor = AgentExecutor(agent=agent, tools=[], verbose=False)
     result = executor.invoke({"input": texto})
     return result.get("output", "")

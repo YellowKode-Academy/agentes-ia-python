@@ -4,8 +4,8 @@ Faz o agente raciocinar sobre o próprio processo de raciocínio.
 """
 from dotenv import load_dotenv
 from langchain_anthropic import ChatAnthropic
-from langchain.agents import create_react_agent, AgentExecutor
-from langchain import hub
+from langchain_classic.agents import create_react_agent, AgentExecutor
+from langchain_classic import hub
 
 load_dotenv()
 

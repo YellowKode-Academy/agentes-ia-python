@@ -147,8 +147,8 @@ def criar_agente_degradavel():
     Retorna (agente, nivel_degradacao).
     """
     from langchain_anthropic import ChatAnthropic
-    from langchain.agents import create_react_agent, AgentExecutor
-    from langchain import hub
+    from langchain_classic.agents import create_react_agent, AgentExecutor
+    from langchain_classic import hub
     from langgraph.checkpoint.memory import MemorySaver
 
     ferramentas = []
