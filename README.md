@@ -49,6 +49,16 @@ GROQ_API_KEY=gsk_...              # opcional: fallback de modelo (cap10)
 API_KEY=sua-chave-de-producao     # para a API REST do cap11
 ```
 
+## Onde obter as chaves
+
+| Variável | Onde criar | Plano gratuito |
+|---|---|---|
+| `ANTHROPIC_API_KEY` | [console.anthropic.com/settings/keys](https://console.anthropic.com/settings/keys) | Não (pay-as-you-go) |
+| `TAVILY_API_KEY` | [app.tavily.com](https://app.tavily.com/home) | Sim (1.000 req/mês) |
+| `LANGCHAIN_API_KEY` | [smith.langchain.com](https://smith.langchain.com) → Settings → API Keys | Sim |
+| `GROQ_API_KEY` | [console.groq.com/keys](https://console.groq.com/keys) | Sim (rate limits) |
+| `API_KEY` | Gere localmente: `python -c "import secrets; print(secrets.token_hex(32))"` | — |
+
 ## Estrutura por capítulo
 
 | Capítulo | Modulo | O que voce constroi |
