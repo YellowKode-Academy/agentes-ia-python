@@ -11,8 +11,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 from langchain_anthropic import ChatAnthropic
 from langchain_community.tools.tavily_search import TavilySearchResults
-from langchain_classic.agents import create_react_agent, AgentExecutor
-from langchain_classic import hub
+from langchain.agents import create_agent
 
 from cap05.rag_tools import criar_retriever_de_pdf, criar_ferramenta_rag
 
@@ -32,7 +31,7 @@ PERGUNTAS_ANALISTA = [
 ]
 
 
-def criar_agente_analista(caminho_pdf: str, nome_empresa: str) -> AgentExecutor:
+def criar_agente_analista(caminho_pdf: str, nome_empresa: str):
     """Cria agente com ferramenta RAG para o relatório anual."""
     retriever = criar_retriever_de_pdf(caminho_pdf, nome_empresa.lower().replace(" ", "_"))
     ferramenta_doc = criar_ferramenta_rag(
@@ -46,15 +45,7 @@ def criar_agente_analista(caminho_pdf: str, nome_empresa: str) -> AgentExecutor:
     )
     llm = ChatAnthropic(model="claude-sonnet-4-6")
     tools = [ferramenta_doc, TavilySearchResults(max_results=2)]
-    prompt = hub.pull("hwchase17/react")
-    agent = create_react_agent(llm, tools, prompt)
-    return AgentExecutor(
-        agent=agent,
-        tools=tools,
-        verbose=False,
-        handle_parsing_errors=True,
-        max_iterations=5
-    )
+    return create_agent(llm, tools)
 
 
 def executar_analise_equity(caminho_pdf: str, nome_empresa: str) -> None:
@@ -71,13 +62,16 @@ def executar_analise_equity(caminho_pdf: str, nome_empresa: str) -> None:
         print("em: ri.[empresa].com.br ou na seção de RI do site da empresa.\n")
         return
 
-    executor = criar_agente_analista(caminho_pdf, nome_empresa)
+    agent = criar_agente_analista(caminho_pdf, nome_empresa)
 
     for i, pergunta in enumerate(PERGUNTAS_ANALISTA, 1):
         print(f"[{i:02d}/10] {pergunta}")
         try:
-            resposta = executor.invoke({"input": pergunta})
-            print(f"Resposta: {resposta['output'][:400]}{'...' if len(resposta['output']) > 400 else ''}")
+            resultado = agent.invoke({
+                "messages": [{"role": "user", "content": pergunta}]
+            })
+            resposta = resultado["messages"][-1].content
+            print(f"Resposta: {resposta[:400]}{'...' if len(resposta) > 400 else ''}")
         except Exception as e:
             print(f"Erro ao processar pergunta: {e}")
         print()

@@ -1,9 +1,9 @@
 from dotenv import load_dotenv
 from langchain_community.document_loaders import PyPDFLoader, TextLoader, CSVLoader
-from langchain_classic.text_splitter import RecursiveCharacterTextSplitter
+from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_chroma import Chroma
 from langchain_community.embeddings import HuggingFaceEmbeddings
-from langchain_classic.tools import tool
+from langchain.tools import tool
 from pathlib import Path
 
 load_dotenv()

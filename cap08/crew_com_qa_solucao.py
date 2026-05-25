@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 from crewai import Agent, Task, Crew, Process
 from langchain_anthropic import ChatAnthropic
 from langchain_community.tools.tavily_search import TavilySearchResults
-from langchain_classic.tools import tool
+from langchain.tools import tool
 import json
 
 load_dotenv()

@@ -147,8 +147,7 @@ def criar_agente_degradavel():
     Retorna (agente, nivel_degradacao).
     """
     from langchain_anthropic import ChatAnthropic
-    from langchain_classic.agents import create_react_agent, AgentExecutor
-    from langchain_classic import hub
+    from langchain.agents import create_agent
     from langgraph.checkpoint.memory import MemorySaver
 
     ferramentas = []
@@ -174,10 +173,5 @@ def criar_agente_degradavel():
         except Exception:
             raise RuntimeError("Nenhum modelo disponível. Sistema não pode operar.")
 
-    prompt = hub.pull("hwchase17/react")
-    agent = create_react_agent(llm, ferramentas, prompt)
-    executor = AgentExecutor(
-        agent=agent, tools=ferramentas,
-        handle_parsing_errors=True, max_iterations=5
-    )
-    return executor, nivel
+    agente = create_agent(llm, ferramentas, checkpointer=MemorySaver())
+    return agente, nivel

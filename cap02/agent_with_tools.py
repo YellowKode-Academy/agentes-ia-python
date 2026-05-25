@@ -1,11 +1,10 @@
 import json
 from pathlib import Path
 from dotenv import load_dotenv
-from langchain_classic.agents import create_react_agent, AgentExecutor
+from langchain.agents import create_agent
 from langchain_anthropic import ChatAnthropic
 from langchain_community.tools.tavily_search import TavilySearchResults
-from langchain_classic.tools import tool
-from langchain_classic import hub
+from langchain.tools import tool
 
 load_dotenv()
 
@@ -49,17 +48,17 @@ def criar_agente():
     """Cria o agente de mercado com ferramentas de busca e análise."""
     llm = ChatAnthropic(model="claude-sonnet-4-6")
     tools = criar_ferramentas()
-    prompt = hub.pull("hwchase17/react")
-    agent = create_react_agent(llm, tools, prompt)
-    return AgentExecutor(agent=agent, tools=tools, verbose=True, handle_parsing_errors=True)
+    return create_agent(llm, tools)
 
 
-def perguntar(executor, texto: str) -> str:
+def perguntar(agent, texto: str) -> str:
     """Envia uma pergunta ao agente e retorna a resposta como texto."""
-    result = executor.invoke({"input": texto})
-    return result.get("output", "")
+    result = agent.invoke({
+        "messages": [{"role": "user", "content": texto}]
+    })
+    return result["messages"][-1].content
 
 
 if __name__ == "__main__":
-    executor = criar_agente()
-    print(perguntar(executor, "Qual é a cotação do dólar hoje?"))
+    agent = criar_agente()
+    print(perguntar(agent, "Qual é a cotação do dólar hoje?"))

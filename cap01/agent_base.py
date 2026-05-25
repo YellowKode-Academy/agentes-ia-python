@@ -1,7 +1,6 @@
 from dotenv import load_dotenv
-from langchain_classic.agents import create_react_agent
+from langchain.agents import create_agent
 from langchain_anthropic import ChatAnthropic
-from langchain_classic import hub
 
 load_dotenv()
 
@@ -9,16 +8,15 @@ load_dotenv()
 def criar_agente():
     """Cria e retorna o agente base do projeto."""
     llm = ChatAnthropic(model="claude-sonnet-4-6")
-    prompt = hub.pull("hwchase17/react")
-    return create_react_agent(llm, tools=[], prompt=prompt)
+    return create_agent(llm, tools=[])
 
 
 def perguntar(agent, texto: str) -> str:
     """Envia uma pergunta ao agente e retorna a resposta como texto."""
-    from langchain_classic.agents import AgentExecutor
-    executor = AgentExecutor(agent=agent, tools=[], verbose=False)
-    result = executor.invoke({"input": texto})
-    return result.get("output", "")
+    result = agent.invoke({
+        "messages": [{"role": "user", "content": texto}]
+    })
+    return result["messages"][-1].content
 
 
 if __name__ == "__main__":

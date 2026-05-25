@@ -5,11 +5,10 @@ Ferramenta comparar_concorrentes: lê dois JSONs e retorna comparação estrutur
 import json
 from pathlib import Path
 from dotenv import load_dotenv
-from langchain_classic.tools import tool
-from langchain_classic.agents import create_react_agent, AgentExecutor
+from langchain.tools import tool
+from langchain.agents import create_agent
 from langchain_anthropic import ChatAnthropic
 from langchain_community.tools.tavily_search import TavilySearchResults
-from langchain_classic import hub
 
 load_dotenv()
 
@@ -72,11 +71,9 @@ def comparar_concorrentes(nome_a: str, nome_b: str) -> str:
 if __name__ == "__main__":
     llm = ChatAnthropic(model="claude-sonnet-4-6")
     tools = [TavilySearchResults(max_results=3), comparar_concorrentes]
-    prompt = hub.pull("hwchase17/react")
-    agent = create_react_agent(llm, tools, prompt)
-    executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
+    agent = create_agent(llm, tools)
 
-    resultado = executor.invoke({
-        "input": "Compare os concorrentes 'concorrente_a' e 'concorrente_b' e diga qual tem melhor posição de mercado."
+    resultado = agent.invoke({
+        "messages": [{"role": "user", "content": "Compare os concorrentes 'concorrente_a' e 'concorrente_b' e diga qual tem melhor posição de mercado."}]
     })
-    print(resultado["output"])
+    print(resultado["messages"][-1].content)

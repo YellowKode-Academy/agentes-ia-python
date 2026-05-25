@@ -1,8 +1,8 @@
 from dotenv import load_dotenv
 from langchain_chroma import Chroma
 from langchain_community.embeddings import HuggingFaceEmbeddings
-from langchain_classic.text_splitter import RecursiveCharacterTextSplitter
-from langchain_classic.tools import tool
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain.tools import tool
 from datetime import datetime
 
 load_dotenv()

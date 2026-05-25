@@ -157,20 +157,22 @@ async def metricas(_=Depends(auth)):
 async def analisar_stream(req: AnalisarRequest, _=Depends(auth)):
     """Streaming de análise via Server-Sent Events."""
     async def gerar_chunks():
+        from langchain.agents import create_agent
         from langchain_anthropic import ChatAnthropic
         from langchain_community.tools.tavily_search import TavilySearchResults
-        from langchain_classic.agents import create_react_agent, AgentExecutor
-        from langchain_classic import hub
 
         llm = ChatAnthropic(model="claude-sonnet-4-6")
-        tools = [TavilySearchResults(max_results=3)]
-        prompt = hub.pull("hwchase17/react")
-        agent = create_react_agent(llm, tools, prompt)
-        executor = AgentExecutor(agent=agent, tools=tools, handle_parsing_errors=True)
+        agent = create_agent(llm, [TavilySearchResults(max_results=3)])
+        config = {"configurable": {"thread_id": req.thread_id or "stream"}}
 
-        async for chunk in executor.astream({"input": f"Analise o mercado de: {req.tema}"}):
-            if "output" in chunk:
-                yield f"data: {json.dumps({'texto': chunk['output']}, ensure_ascii=False)}\n\n"
+        async for chunk in agent.astream(
+            {"messages": [{"role": "user", "content": f"Analise: {req.tema}"}]},
+            config=config
+        ):
+            if "agent" in chunk:
+                for msg in chunk["agent"]["messages"]:
+                    if hasattr(msg, "content") and isinstance(msg.content, str):
+                        yield f"data: {json.dumps({'texto': msg.content}, ensure_ascii=False)}\n\n"
         yield "data: [DONE]\n\n"
 
     return StreamingResponse(gerar_chunks(), media_type="text/event-stream")
@@ -179,24 +181,23 @@ async def analisar_stream(req: AnalisarRequest, _=Depends(auth)):
 @app.post("/conversar/{thread_id}")
 async def conversar(thread_id: str, mensagem: str, _=Depends(auth)):
     """Endpoint síncrono para conversa — resposta em 2-5 segundos."""
+    from langchain.agents import create_agent
     from langchain_anthropic import ChatAnthropic
     from langchain_community.tools.tavily_search import TavilySearchResults
-    from langchain_classic.agents import create_react_agent, AgentExecutor
-    from langchain_classic import hub
     from langgraph.checkpoint.memory import MemorySaver
 
     llm = ChatAnthropic(model="claude-sonnet-4-6")
-    tools = [TavilySearchResults(max_results=2)]
-    prompt = hub.pull("hwchase17/react")
-    agent = create_react_agent(llm, tools, prompt)
-    executor = AgentExecutor(
-        agent=agent, tools=tools,
-        handle_parsing_errors=True, max_iterations=4
+    agent = create_agent(llm, [TavilySearchResults(max_results=2)],
+                         checkpointer=MemorySaver())
+    config = {"configurable": {"thread_id": thread_id}}
+    resultado = await asyncio.to_thread(
+        agent.invoke,
+        {"messages": [{"role": "user", "content": mensagem}]},
+        config
     )
-    resultado = await asyncio.to_thread(executor.invoke, {"input": mensagem})
     return {
         "thread_id": thread_id,
-        "resposta": resultado.get("output", ""),
+        "resposta": resultado["messages"][-1].content,
         "status": "ok"
     }
 

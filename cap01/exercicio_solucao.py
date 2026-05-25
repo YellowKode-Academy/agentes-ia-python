@@ -3,16 +3,17 @@ Capítulo 1 — Solução do exercício
 Agente raciocina sobre incerteza e verificação, com análise do padrão de resposta.
 """
 from dotenv import load_dotenv
+from langchain.agents import create_agent
 from langchain_anthropic import ChatAnthropic
-from langchain_classic.agents import create_react_agent, AgentExecutor
-from langchain_classic import hub
 
 load_dotenv()
 
 
-def perguntar(executor, texto: str) -> str:
-    result = executor.invoke({"input": texto})
-    return result.get("output", "")
+def perguntar(agent, texto: str) -> str:
+    result = agent.invoke({
+        "messages": [{"role": "user", "content": texto}]
+    })
+    return result["messages"][-1].content
 
 
 def analisar_padrao_resposta(resposta: str) -> dict:
@@ -36,9 +37,7 @@ def analisar_padrao_resposta(resposta: str) -> dict:
 
 if __name__ == "__main__":
     llm = ChatAnthropic(model="claude-sonnet-4-6")
-    prompt = hub.pull("hwchase17/react")
-    agent = create_react_agent(llm, tools=[], prompt=prompt)
-    executor = AgentExecutor(agent=agent, tools=[], verbose=False)
+    agent = create_agent(llm, tools=[])
 
     perguntas = [
         "Quando você não tem certeza de uma resposta, o que você faz?",
@@ -49,7 +48,7 @@ if __name__ == "__main__":
     print("=== ANÁLISE DO PADRÃO DE RACIOCÍNIO DO AGENTE ===\n")
     for pergunta in perguntas:
         print(f"P: {pergunta}")
-        resposta = perguntar(executor, pergunta)
+        resposta = perguntar(agent, pergunta)
         print(f"R: {resposta}")
         analise = analisar_padrao_resposta(resposta)
         print(f"[Análise] Tom: {analise['tom']} | "
