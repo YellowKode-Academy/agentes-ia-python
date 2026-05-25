@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
 from langchain.agents import create_agent
 from langchain_anthropic import ChatAnthropic
-from langchain_community.tools.tavily_search import TavilySearchResults
+from langchain_tavily import TavilySearch
 from langgraph.checkpoint.memory import MemorySaver
 
 load_dotenv()
@@ -10,7 +10,7 @@ load_dotenv()
 def criar_agente():
     """Cria agente com memória de curto prazo e ferramentas."""
     llm = ChatAnthropic(model="claude-sonnet-4-6")
-    tools = [TavilySearchResults(max_results=3)]
+    tools = [TavilySearch(max_results=3)]
     memoria = MemorySaver()
     return create_agent(llm, tools, checkpointer=memoria)
 

@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 from langchain.tools import tool
 from langchain.agents import create_agent
 from langchain_anthropic import ChatAnthropic
-from langchain_community.tools.tavily_search import TavilySearchResults
+from langchain_tavily import TavilySearch
 
 load_dotenv()
 
@@ -70,7 +70,7 @@ def comparar_concorrentes(nome_a: str, nome_b: str) -> str:
 
 if __name__ == "__main__":
     llm = ChatAnthropic(model="claude-sonnet-4-6")
-    tools = [TavilySearchResults(max_results=3), comparar_concorrentes]
+    tools = [TavilySearch(max_results=3), comparar_concorrentes]
     agent = create_agent(llm, tools)
 
     resultado = agent.invoke({

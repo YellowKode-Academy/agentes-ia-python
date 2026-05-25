@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
 from crewai import Agent, Task, Crew, Process
 from langchain_anthropic import ChatAnthropic
-from langchain_community.tools.tavily_search import TavilySearchResults
+from langchain_tavily import TavilySearch
 from langchain.tools import tool
 import json
 
@@ -12,7 +12,7 @@ llm = ChatAnthropic(model="claude-sonnet-4-6")
 
 def criar_crew_inteligencia_mercado() -> Crew:
     """Cria a Crew completa de inteligência de mercado com 3 agentes especializados."""
-    busca = TavilySearchResults(max_results=5)
+    busca = TavilySearch(max_results=5)
 
     @tool
     def calcular_cagr(valor_inicial: float, valor_final: float, anos: int) -> str:

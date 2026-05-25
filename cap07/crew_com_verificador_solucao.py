@@ -8,12 +8,12 @@ emitindo um score de confiabilidade (0-10).
 from dotenv import load_dotenv
 from crewai import Agent, Task, Crew, Process
 from langchain_anthropic import ChatAnthropic
-from langchain_community.tools.tavily_search import TavilySearchResults
+from langchain_tavily import TavilySearch
 
 load_dotenv()
 
 llm = ChatAnthropic(model="claude-sonnet-4-6")
-busca = TavilySearchResults(max_results=5)
+busca = TavilySearch(max_results=5)
 
 
 def criar_crew_com_verificador(tema: str) -> dict:

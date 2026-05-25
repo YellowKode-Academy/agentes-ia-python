@@ -3,7 +3,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 from langchain.agents import create_agent
 from langchain_anthropic import ChatAnthropic
-from langchain_community.tools.tavily_search import TavilySearchResults
+from langchain_tavily import TavilySearch
 from langchain.tools import tool
 
 load_dotenv()
@@ -11,7 +11,7 @@ load_dotenv()
 
 def criar_ferramentas():
     """Cria e retorna a lista de ferramentas do agente de mercado."""
-    search = TavilySearchResults(max_results=3)
+    search = TavilySearch(max_results=3)
 
     @tool
     def calcular_percentual(valor: float, percentual: float) -> str:

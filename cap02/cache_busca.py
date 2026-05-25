@@ -63,8 +63,8 @@ class CacheBusca:
 
 def criar_busca_com_cache(max_results: int = 3, ttl_horas: int = 24):
     """Cria função de busca Tavily com cache transparente."""
-    from langchain_community.tools.tavily_search import TavilySearchResults
-    tavily = TavilySearchResults(max_results=max_results)
+    from langchain_tavily import TavilySearch
+    tavily = TavilySearch(max_results=max_results)
     cache = CacheBusca(ttl_horas=ttl_horas)
 
     def buscar(query: str) -> list:

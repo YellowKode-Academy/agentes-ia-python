@@ -159,10 +159,10 @@ async def analisar_stream(req: AnalisarRequest, _=Depends(auth)):
     async def gerar_chunks():
         from langchain.agents import create_agent
         from langchain_anthropic import ChatAnthropic
-        from langchain_community.tools.tavily_search import TavilySearchResults
+        from langchain_tavily import TavilySearch
 
         llm = ChatAnthropic(model="claude-sonnet-4-6")
-        agent = create_agent(llm, [TavilySearchResults(max_results=3)])
+        agent = create_agent(llm, [TavilySearch(max_results=3)])
         config = {"configurable": {"thread_id": req.thread_id or "stream"}}
 
         async for chunk in agent.astream(
@@ -183,11 +183,11 @@ async def conversar(thread_id: str, mensagem: str, _=Depends(auth)):
     """Endpoint síncrono para conversa — resposta em 2-5 segundos."""
     from langchain.agents import create_agent
     from langchain_anthropic import ChatAnthropic
-    from langchain_community.tools.tavily_search import TavilySearchResults
+    from langchain_tavily import TavilySearch
     from langgraph.checkpoint.memory import MemorySaver
 
     llm = ChatAnthropic(model="claude-sonnet-4-6")
-    agent = create_agent(llm, [TavilySearchResults(max_results=2)],
+    agent = create_agent(llm, [TavilySearch(max_results=2)],
                          checkpointer=MemorySaver())
     config = {"configurable": {"thread_id": thread_id}}
     resultado = await asyncio.to_thread(

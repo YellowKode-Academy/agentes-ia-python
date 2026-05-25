@@ -60,8 +60,8 @@ def buscar_com_cache(query: str, max_results: int = 5) -> list[dict]:
     if cached is not None:
         return cached
 
-    from langchain_community.tools.tavily_search import TavilySearchResults
-    search = TavilySearchResults(max_results=max_results)
+    from langchain_tavily import TavilySearch
+    search = TavilySearch(max_results=max_results)
     try:
         resultado = search.invoke(query)
         set_cache(query, resultado)

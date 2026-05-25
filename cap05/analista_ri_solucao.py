@@ -10,7 +10,7 @@ import sys
 from pathlib import Path
 from dotenv import load_dotenv
 from langchain_anthropic import ChatAnthropic
-from langchain_community.tools.tavily_search import TavilySearchResults
+from langchain_tavily import TavilySearch
 from langchain.agents import create_agent
 
 from cap05.rag_tools import criar_retriever_de_pdf, criar_ferramenta_rag
@@ -44,7 +44,7 @@ def criar_agente_analista(caminho_pdf: str, nome_empresa: str):
         )
     )
     llm = ChatAnthropic(model="claude-sonnet-4-6")
-    tools = [ferramenta_doc, TavilySearchResults(max_results=2)]
+    tools = [ferramenta_doc, TavilySearch(max_results=2)]
     return create_agent(llm, tools)
 
 

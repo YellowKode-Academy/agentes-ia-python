@@ -154,8 +154,8 @@ def criar_agente_degradavel():
     nivel = NivelDegradacao.COMPLETO
 
     try:
-        from langchain_community.tools.tavily_search import TavilySearchResults
-        busca = TavilySearchResults(max_results=3)
+        from langchain_tavily import TavilySearch
+        busca = TavilySearch(max_results=3)
         busca.invoke("teste")
         ferramentas.append(busca)
     except Exception as e:

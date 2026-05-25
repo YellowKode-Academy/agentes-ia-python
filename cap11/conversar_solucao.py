@@ -33,11 +33,11 @@ def _obter_agente():
 
     from langchain.agents import create_agent
     from langchain_anthropic import ChatAnthropic
-    from langchain_community.tools.tavily_search import TavilySearchResults
+    from langchain_tavily import TavilySearch
     from langgraph.checkpoint.memory import MemorySaver
 
     llm = ChatAnthropic(model="claude-sonnet-4-6", max_retries=2)
-    tools = [TavilySearchResults(max_results=2)]
+    tools = [TavilySearch(max_results=2)]
     _agent = create_agent(llm, tools, checkpointer=MemorySaver())
     return _agent
 

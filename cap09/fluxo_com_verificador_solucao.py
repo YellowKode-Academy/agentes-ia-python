@@ -10,12 +10,12 @@ from langgraph.graph import StateGraph, START, END
 from langgraph.checkpoint.memory import MemorySaver
 from langchain_anthropic import ChatAnthropic
 from langchain_core.messages import HumanMessage, SystemMessage
-from langchain_community.tools.tavily_search import TavilySearchResults
+from langchain_tavily import TavilySearch
 
 load_dotenv()
 
 llm = ChatAnthropic(model="claude-sonnet-4-6")
-busca = TavilySearchResults(max_results=5)
+busca = TavilySearch(max_results=5)
 
 
 class EstadoVerificado(TypedDict):
