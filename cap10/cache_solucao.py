@@ -54,18 +54,27 @@ def set_cache(query: str, resultado: list[dict]) -> None:
     )
 
 
+def _extrair_lista(resultado) -> list[dict]:
+    """Normaliza o retorno da Tavily (dict ou list) para list[dict]."""
+    if isinstance(resultado, dict):
+        return resultado.get("results", [])
+    elif isinstance(resultado, list):
+        return resultado
+    return []
+
+
 def buscar_com_cache(query: str, max_results: int = 5) -> list[dict]:
     """Busca na Tavily com cache em disco. Usa cache se disponível."""
     cached = get_cache(query)
     if cached is not None:
-        return cached
+        return _extrair_lista(cached) if isinstance(cached, dict) else cached
 
     from langchain_tavily import TavilySearch
     search = TavilySearch(max_results=max_results)
     try:
         resultado = search.invoke(query)
         set_cache(query, resultado)
-        return resultado
+        return _extrair_lista(resultado)
     except Exception as e:
         print(f"[TAVILY ERROR] {e}. Tentando cache mesmo expirado...")
         arq = _caminho(query)

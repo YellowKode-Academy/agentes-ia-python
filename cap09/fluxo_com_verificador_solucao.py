@@ -36,7 +36,10 @@ def pesquisar(e: EstadoVerificado) -> EstadoVerificado:
     resultados = busca.invoke(query)
     if isinstance(resultados, str):
         dados = resultados
-    elif resultados:
+    elif isinstance(resultados, dict):
+        items = resultados.get("results", [])
+        dados = "\n".join(r.get("content", str(r)) for r in items[:3])
+    elif isinstance(resultados, list):
         dados = "\n".join(r.get("content", str(r)) for r in resultados[:3])
     else:
         dados = ""
