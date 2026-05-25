@@ -1,0 +1,52 @@
+# Core LangChain + LangGraph
+langchain==0.3.25
+langchain-core==0.3.58
+langchain-anthropic==0.3.15
+langchain-community==0.3.24
+langchain-chroma==0.2.4
+langgraph==0.3.31
+langgraph-checkpoint==2.0.26
+langgraph-checkpoint-sqlite==2.0.10
+
+# Anthropic
+anthropic==0.52.0
+
+# LLM providers
+langchain-groq==0.3.2
+
+# Embeddings locais
+sentence-transformers==3.4.1
+
+# Vector store
+chromadb==0.6.3
+
+# Busca na web
+tavily-python==0.5.1
+duckduckgo-search==7.5.3
+
+# Leitura de documentos
+pypdf==5.4.0
+beautifulsoup4==4.13.3
+lxml==5.3.1
+wikipedia==1.4.0
+
+# Dados e validação
+pydantic==2.11.4
+
+# API REST
+fastapi==0.115.12
+uvicorn==0.34.2
+httpx==0.28.1
+python-multipart==0.0.20
+
+# Logs estruturados
+structlog==25.3.0
+
+# Utilitários
+python-dotenv==1.1.0
+crewai==0.118.0
+crewai-tools==0.44.0
+
+# Opcional: Redis para produção
+# redis==5.2.1
+# celery==5.5.0

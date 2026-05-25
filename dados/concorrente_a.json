@@ -1,0 +1,42 @@
+{
+  "empresa": "TechVentures",
+  "setor": "SaaS B2B",
+  "fundacao": 2019,
+  "funcionarios": 200,
+  "sede": "São Paulo, SP",
+  "financiamento": {
+    "total_usd": 15000000,
+    "rodadas": [
+      {"tipo": "Seed", "valor_usd": 2000000, "ano": 2019},
+      {"tipo": "Series A", "valor_usd": 13000000, "ano": 2022}
+    ]
+  },
+  "metricas": {
+    "clientes_ativos": 450,
+    "arr_brl": 18000000,
+    "crescimento_q1_2025": 0.34,
+    "crescimento_q2_2025": 0.21,
+    "churn_anual": 0.08,
+    "nps": 62
+  },
+  "produto": {
+    "categoria": "Gestão de projetos e equipes",
+    "modelo": "Freemium + plano Pro R$199/mês + Enterprise",
+    "diferenciais": [
+      "Integração nativa com Slack e Google Workspace",
+      "IA para priorização automática de tarefas",
+      "Dashboard de produtividade em tempo real"
+    ]
+  },
+  "concorrentes_diretos": ["Asana", "Monday.com", "ClickUp"],
+  "riscos": [
+    "Alta dependência de 3 grandes clientes (40% do ARR)",
+    "Mercado saturado por players internacionais bem capitalizados",
+    "Custo de aquisição de clientes crescendo 18% ao ano"
+  ],
+  "oportunidades": [
+    "Expansão para PMEs com plano mais acessível",
+    "Mercado latinoamericano ainda pouco explorado",
+    "Integração com ferramentas de IA generativa"
+  ]
+}
