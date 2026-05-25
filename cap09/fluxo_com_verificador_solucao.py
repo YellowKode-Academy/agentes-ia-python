@@ -34,7 +34,12 @@ class EstadoVerificado(TypedDict):
 def pesquisar(e: EstadoVerificado) -> EstadoVerificado:
     query = e.get("query_refinada") or f"{e['tema']} mercado brasil 2025 dados"
     resultados = busca.invoke(query)
-    dados = "\n".join(r["content"] for r in resultados[:3]) if resultados else ""
+    if isinstance(resultados, str):
+        dados = resultados
+    elif resultados:
+        dados = "\n".join(r.get("content", str(r)) for r in resultados[:3])
+    else:
+        dados = ""
     return {**e, "dados": dados, "tentativas": e.get("tentativas", 0) + 1, "query_refinada": ""}
 
 
