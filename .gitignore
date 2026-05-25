@@ -7,3 +7,7 @@ __pycache__/
 resultados/
 logs/
 *.log
+cache/
+memoria_longa/
+indices/
+*.db
