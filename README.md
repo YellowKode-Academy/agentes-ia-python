@@ -11,7 +11,7 @@
 </p>
 
 <p align="center">
-  <a href="https://www.amazon.com.br">Disponível na Amazon KDP</a>
+  <a href="https://www.amazon.com.br/Agentes-com-Python-aut%C3%B4nomos-LangChain-ebook/dp/B0H2RZ1VBM/">Disponivel na Amazon KDP</a>
 </p>
 
 ---
