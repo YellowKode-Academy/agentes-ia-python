@@ -16,6 +16,7 @@ anthropic==0.104.1
 
 # Embeddings locais
 sentence-transformers>=3.0.0
+langchain-huggingface>=1.0.0
 
 # Vector store
 chromadb>=1.3.5

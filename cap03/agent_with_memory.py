@@ -6,6 +6,9 @@ from langgraph.checkpoint.memory import MemorySaver
 
 load_dotenv()
 
+# Histórico externo por thread_id: {"thread_id": [{"humano": ..., "assistente": ...}]}
+_historico: dict[str, list[dict]] = {}
+
 
 def criar_agente():
     """Cria agente com memória de curto prazo e ferramentas."""
@@ -22,7 +25,14 @@ def conversar(agent, mensagem: str, thread_id: str = "default") -> str:
         {"messages": [{"role": "user", "content": mensagem}]},
         config=config
     )
-    return result["messages"][-1].content
+    resposta = result["messages"][-1].content
+
+    # Registrar no histórico externo para inspeção/relatório
+    if thread_id not in _historico:
+        _historico[thread_id] = []
+    _historico[thread_id].append({"humano": mensagem, "assistente": resposta})
+
+    return resposta
 
 
 if __name__ == "__main__":
