@@ -1,4 +1,11 @@
-<p align="center">
+﻿<p align="center">
+
+[![Capa do Livro](cover.jpg)](https://www.amazon.com.br/dp/B0H2RZ1VBM)
+
+> **[Disponivel na Amazon.com.br](https://www.amazon.com.br/dp/B0H2RZ1VBM)** — R$19,97
+
+---
+
   <img src="capa.jpg" alt="Agentes de IA com Python" width="320"/>
 </p>
 
