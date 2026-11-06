@@ -1,4 +1,6 @@
-﻿<p align="center">
+> 🇺🇸 **English edition:** branch [`en`](https://github.com/YellowKode-Academy/agentes-ia-python/tree/en), companion of *AI Agents with Python*.
+
+<p align="center">
 
 [![Capa do Livro](cover.jpg)](https://www.amazon.com.br/dp/B0H2RZ1VBM)
 
