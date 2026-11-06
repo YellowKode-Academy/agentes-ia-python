@@ -4,10 +4,10 @@ __pycache__/
 *.pyc
 *.pyo
 .pytest_cache/
-resultados/
+results/
 logs/
 *.log
 cache/
-memoria_longa/
-indices/
+long_term_memory/
+indexes/
 *.db

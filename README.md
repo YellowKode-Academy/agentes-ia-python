@@ -1,110 +1,99 @@
-﻿<p align="center">
+> **English edition.** This is the `en` branch of the companion repository for the book **"AI Agents with Python"** by Kelvin Baumhardt Biffi. Everything here (file names, identifiers, comments, prompts and printed messages) is in English, so the code matches the listings in the English edition of the book.
+>
+> ```bash
+> git clone -b en https://github.com/YellowKode-Academy/agentes-ia-python.git
+> ```
+>
+> The `main` branch holds the original Portuguese edition ("Agentes de IA com Python") with the same code and the same behavior.
 
-[![Capa do Livro](cover.jpg)](https://www.amazon.com.br/dp/B0H2RZ1VBM)
+# AI Agents with Python
 
-> **[Disponivel na Amazon.com.br](https://www.amazon.com.br/dp/B0H2RZ1VBM)** — R$19,97
+Companion repository for the book, published by
+[@kelvinbiffi](https://github.com/kelvinbiffi)
+and [@YellowKode-Academy](https://github.com/YellowKode-Academy).
 
----
+## About this repository
 
-  <img src="capa.jpg" alt="Agentes de IA com Python" width="320"/>
-</p>
+It contains all the Python code referenced in the book, from chapter 1 to chapter 12. Each module maps directly to a chapter, with the exercise and solution files mentioned in the text.
 
-<h1 align="center">Agentes de IA com Python</h1>
-
-<p align="center">
-  Repositório companion do livro publicado por
-  <a href="https://github.com/kelvinbiffi">@kelvinbiffi</a>
-  e <a href="https://github.com/YellowKode-Academy">@YellowKode-Academy</a>
-</p>
-
-<p align="center">
-  <a href="https://www.amazon.com.br/Agentes-com-Python-aut%C3%B4nomos-LangChain-ebook/dp/B0H2RZ1VBM/">Disponivel na Amazon KDP</a>
-</p>
-
----
-
-## Sobre este repositório
-
-Contém todo o código Python referenciado no livro, do capítulo 1 ao 12. Cada módulo corresponde diretamente a um capítulo, com os arquivos de exercício e solução mencionados no texto.
-
-O projeto central do livro é um agente de inteligência de mercado, construído peça por peça. No final, o sistema integra busca na web, memória longa, RAG em documentos, orquestração multi-agente e uma API REST completa.
+The book's central project is a market intelligence agent, built piece by piece. At the end, the system integrates web search, long-term memory, RAG over documents, multi-agent orchestration and a complete REST API.
 
 ## Setup
 
 ```bash
-git clone https://github.com/YellowKode-Academy/agentes-ia-python
+git clone -b en https://github.com/YellowKode-Academy/agentes-ia-python.git
 cd agentes-ia-python
 python -m venv .venv
 source .venv/bin/activate
 # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 cp .env.example .env
-# Edite .env com suas chaves de API
+# Edit .env with your API keys
 ```
 
-## Variáveis de ambiente
+## Environment variables
 
-Copie `.env.example` para `.env` e preencha:
+Copy `.env.example` to `.env` and fill it in:
 
 ```
 ANTHROPIC_API_KEY=sk-ant-...
 TAVILY_API_KEY=tvly-...
-LANGCHAIN_API_KEY=ls__...         # opcional: para LangSmith
-LANGCHAIN_TRACING_V2=true         # opcional: para LangSmith
-LANGCHAIN_PROJECT=agente-mercado  # opcional: para LangSmith
-GROQ_API_KEY=gsk_...              # opcional: fallback de modelo (cap10)
-API_KEY=sua-chave-de-producao     # para a API REST do cap11
+LANGCHAIN_API_KEY=ls__...         # optional: for LangSmith
+LANGCHAIN_TRACING_V2=true         # optional: for LangSmith
+LANGCHAIN_PROJECT=market-agent    # optional: for LangSmith
+GROQ_API_KEY=gsk_...              # optional: model fallback (ch10)
+API_KEY=your-production-key       # for the ch11 REST API
 ```
 
-## Onde obter as chaves
+## Where to get the keys
 
-| Variável | Onde criar | Plano gratuito |
+| Variable | Where to create it | Free plan |
 |---|---|---|
-| `ANTHROPIC_API_KEY` | [console.anthropic.com/settings/keys](https://console.anthropic.com/settings/keys) | Não (pay-as-you-go) |
-| `TAVILY_API_KEY` | [app.tavily.com](https://app.tavily.com/home) | Sim (1.000 req/mês) |
-| `LANGCHAIN_API_KEY` | [smith.langchain.com](https://smith.langchain.com) → Settings → API Keys | Sim |
-| `GROQ_API_KEY` | [console.groq.com/keys](https://console.groq.com/keys) | Sim (rate limits) |
-| `API_KEY` | Gere localmente: `python -c "import secrets; print(secrets.token_hex(32))"` | — |
+| `ANTHROPIC_API_KEY` | [console.anthropic.com/settings/keys](https://console.anthropic.com/settings/keys) | No (pay-as-you-go) |
+| `TAVILY_API_KEY` | [app.tavily.com](https://app.tavily.com/home) | Yes (1,000 requests/month) |
+| `LANGCHAIN_API_KEY` | [smith.langchain.com](https://smith.langchain.com) → Settings → API Keys | Yes |
+| `GROQ_API_KEY` | [console.groq.com/keys](https://console.groq.com/keys) | Yes (rate limits) |
+| `API_KEY` | Generate it locally: `python -c "import secrets; print(secrets.token_hex(32))"` | N/A |
 
-## Estrutura por capítulo
+## Structure by chapter
 
-| Capítulo | Modulo | O que voce constroi |
+| Chapter | Module | What you build |
 |---|---|---|
-| 1 | `cap01/` | Primeiro agente com `create_react_agent` e `ChatAnthropic` |
-| 2 | `cap02/` | Ferramentas customizadas: busca, calculadora, leitura de JSON |
-| 3 | `cap03/` | Memoria de curto prazo com historico de conversas |
-| 4 | `cap04/` | Memoria longa com ChromaDB e embeddings locais |
-| 5 | `cap05/` | RAG: consulta a PDFs, CSVs e paginas web como ferramenta |
-| 6 | `cap06/` | Observabilidade com LangSmith e callbacks customizados |
-| 7 | `cap07/` | CrewAI: pesquisador e analista em processo sequencial |
-| 8 | `cap08/` | CrewAI: tres agentes especializados com verificacao de qualidade |
-| 9 | `cap09/` | Fluxos condicionais com LangGraph: loop de qualidade e retry |
-| 10 | `cap10/` | Resiliencia: retry, fallback Claude para Groq, circuit breaker, cache |
-| 11 | `cap11/` | API REST com FastAPI, job queue assincrono e Docker |
-| 12 | `cap12/` | Sistema completo integrado com monitoramento continuo |
+| 1 | `ch01/` | First agent with `create_agent` and `ChatAnthropic` |
+| 2 | `ch02/` | Custom tools: search, calculator, JSON reading |
+| 3 | `ch03/` | Short-term memory with conversation history |
+| 4 | `ch04/` | Long-term memory with ChromaDB and local embeddings |
+| 5 | `ch05/` | RAG: querying PDFs, CSVs and web pages as a tool |
+| 6 | `ch06/` | Observability with LangSmith and custom callbacks |
+| 7 | `ch07/` | CrewAI: researcher and analyst in a sequential process |
+| 8 | `ch08/` | CrewAI: three specialized agents with quality checks |
+| 9 | `ch09/` | Conditional flows with LangGraph: quality loop and retry |
+| 10 | `ch10/` | Resilience: retry, Claude-to-Groq fallback, circuit breaker, cache |
+| 11 | `ch11/` | REST API with FastAPI, async job queue and Docker |
+| 12 | `ch12/` | Complete integrated system with continuous monitoring |
 
-## Arquivos por modulo
+## Files per module
 
-Cada modulo tem, no minimo, dois arquivos:
+Each module has at least two files:
 
-- `[modulo].py` — implementacao principal usada no livro
-- `exercicio_solucao.py` ou `*_solucao.py` — solucao completa do exercicio do capitulo
+- `[module].py`: the main implementation used in the book
+- `exercise_solution.py` or `*_solution.py`: the complete solution to the chapter's exercise
 
-## Pastas de dados
+## Data folders
 
 ```
-dados/          JSON de exemplo com dados de concorrentes
-resultados/     outputs gerados pelo agente (criado automaticamente)
-cache/          cache de buscas com TTL (criado automaticamente)
-logs/           logs de execucao (criado automaticamente)
-memoria_longa/  ChromaDB persistente (criado automaticamente)
-indices/        indices RAG por empresa (criado automaticamente)
+data/             sample JSON with competitor data
+results/          outputs generated by the agent (created automatically)
+cache/            search cache with TTL (created automatically)
+logs/             execution logs (created automatically)
+long_term_memory/ persistent ChromaDB (created automatically)
+indexes/          RAG indexes per company (created automatically)
 ```
 
-## Versoes
+## Versions
 
-Todas as dependencias estao em `requirements.txt` com versoes fixadas. Use exatamente essas versoes para garantir compatibilidade com o codigo do livro.
+All dependencies are in `requirements.txt` with pinned versions. Use exactly those versions to ensure compatibility with the book's code.
 
-## Autor
+## Author
 
-Criado por [@kelvinbiffi](https://github.com/kelvinbiffi) para a serie de livros tecnicos da [@YellowKode-Academy](https://github.com/YellowKode-Academy).
+Created by [@kelvinbiffi](https://github.com/kelvinbiffi) for the technical book series of [@YellowKode-Academy](https://github.com/YellowKode-Academy).

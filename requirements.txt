@@ -11,40 +11,40 @@ langgraph-checkpoint==4.1.1
 # Anthropic
 anthropic==0.104.1
 
-# LLM providers (opcional — usado como fallback em cap10)
+# LLM providers (optional: used as a fallback in ch10)
 # langchain-groq==0.3.2
 
-# Embeddings locais
+# Local embeddings
 sentence-transformers>=3.0.0
 langchain-huggingface>=1.0.0
 
 # Vector store
 chromadb>=1.3.5
 
-# Busca na web
+# Web search
 tavily-python>=0.5.0
 langchain-tavily>=0.2.0
 duckduckgo-search>=7.0.0
 
-# Leitura de documentos
+# Document reading
 pypdf>=5.0.0
 beautifulsoup4==4.13.5
 lxml==6.1.1
 wikipedia>=1.4.0
 
-# Dados e validação
+# Data and validation
 pydantic==2.12.5
 
-# API REST
+# REST API
 fastapi==0.136.1
 uvicorn==0.47.0
 httpx==0.28.1
 python-multipart==0.0.29
 
-# Logs estruturados
+# Structured logs
 structlog>=24.0.0
 
-# Utilitários
+# Utilities
 python-dotenv==1.2.2
-# crewai instalado separadamente para cap07-08 (conflito de versao com chromadb)
-# pip install crewai crewai-tools (instala apos o resto)
+# crewai is installed separately for ch07-08 (version conflict with chromadb)
+# pip install crewai crewai-tools (install it after the rest)
