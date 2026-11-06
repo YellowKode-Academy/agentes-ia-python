@@ -51,7 +51,7 @@ def usage_report(history: list[dict]) -> dict:
         len(t.get("human", "")) + len(t.get("assistant", ""))
         for t in history
     )
-    tokens = estimate_tokens(total_chars)
+    tokens = total_chars // 4  # same rule as estimate_tokens: 1 token ~ 4 characters
     return {
         "messages": len(history),
         "total_characters": total_chars,

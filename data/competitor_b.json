@@ -1,0 +1,54 @@
+{
+  "company": "TaskPilot",
+  "sector": "B2B SaaS",
+  "founded": 2020,
+  "employees": 85,
+  "headquarters": "Belo Horizonte, MG",
+  "funding": {
+    "total_usd": 4500000,
+    "rounds": [
+      {
+        "type": "Seed",
+        "amount_usd": 1500000,
+        "year": 2021
+      },
+      {
+        "type": "Series A",
+        "amount_usd": 3000000,
+        "year": 2023
+      }
+    ]
+  },
+  "metrics": {
+    "active_customers": 1200,
+    "arr_brl": 7500000,
+    "growth_q1_2025": 0.41,
+    "growth_q2_2025": 0.38,
+    "annual_churn": 0.14,
+    "nps": 48
+  },
+  "product": {
+    "category": "Task management for small teams",
+    "model": "Freemium + Team plan R$59/month",
+    "differentiators": [
+      "Simple onboarding in under 10 minutes",
+      "WhatsApp notifications",
+      "Lowest price in the category"
+    ]
+  },
+  "direct_competitors": [
+    "Trello",
+    "ClickUp",
+    "TechVentures"
+  ],
+  "risks": [
+    "High churn among very small customers",
+    "Low average ticket limits sales and marketing budget",
+    "No enterprise features (SSO, audit log)"
+  ],
+  "opportunities": [
+    "Upsell to an Enterprise plan",
+    "Partnerships with accounting firms that serve SMBs",
+    "Expansion to Spanish-speaking Latin America"
+  ]
+}
