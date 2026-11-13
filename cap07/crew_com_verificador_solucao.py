@@ -6,14 +6,19 @@ quantitativos são consistentes com os dados coletados pelo pesquisador,
 emitindo um score de confiabilidade (0-10).
 """
 from dotenv import load_dotenv
-from crewai import Agent, Task, Crew, Process
-from langchain_anthropic import ChatAnthropic
+from crewai import Agent, Task, Crew, Process, LLM
+from crewai.tools import tool
 from langchain_tavily import TavilySearch
 
 load_dotenv()
 
-llm = ChatAnthropic(model="claude-sonnet-4-6")
-busca = TavilySearch(max_results=5)
+llm = LLM(model="anthropic/claude-sonnet-4-6", max_tokens=4096)
+tavily = TavilySearch(max_results=5)
+
+@tool("Busca na web")
+def busca(query: str) -> str:
+    """Busca na web e devolve os resultados mais relevantes."""
+    return str(tavily.invoke({"query": query}))
 
 
 def criar_crew_com_verificador(tema: str) -> dict:
