@@ -47,4 +47,5 @@ structlog>=24.0.0
 # Utilities
 python-dotenv==1.2.2
 # crewai is installed separately for ch07-08 (version conflict with chromadb)
-# pip install crewai crewai-tools (install it after the rest)
+# pip install crewai==1.15.41 (install it after the rest; tested with the versions above)
+# The examples use crewai's own LLM and tools. Do not pass LangChain objects to Agent(llm=..., tools=...).

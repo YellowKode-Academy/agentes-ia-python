@@ -5,20 +5,24 @@ The 4th task evaluates the final report against predefined criteria
 (completeness, data accuracy, clarity of recommendations) and assigns a 0-10 score.
 """
 from dotenv import load_dotenv
-from crewai import Agent, Task, Crew, Process
-from langchain_anthropic import ChatAnthropic
+from crewai import Agent, Task, Crew, Process, LLM
+from crewai.tools import tool
 from langchain_tavily import TavilySearch
-from langchain.tools import tool
 import json
 
 load_dotenv()
 
-llm = ChatAnthropic(model="claude-sonnet-4-6")
+llm = LLM(model="anthropic/claude-sonnet-4-6", max_tokens=4096)
 
 
 def build_crew_with_qa(topic: str) -> dict:
     """Market intelligence Crew with quality assurance (QA)."""
-    search = TavilySearch(max_results=5)
+    tavily = TavilySearch(max_results=5)
+
+    @tool("Web search")
+    def search(query: str) -> str:
+        """Searches the web and returns the most relevant results."""
+        return str(tavily.invoke({"query": query}))
 
     @tool
     def calculate_cagr(initial_value: float, final_value: float, years: int) -> str:

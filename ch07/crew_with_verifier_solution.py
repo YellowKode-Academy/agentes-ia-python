@@ -6,14 +6,19 @@ data is consistent with the data collected by the researcher,
 issuing a reliability score (0-10).
 """
 from dotenv import load_dotenv
-from crewai import Agent, Task, Crew, Process
-from langchain_anthropic import ChatAnthropic
+from crewai import Agent, Task, Crew, Process, LLM
+from crewai.tools import tool
 from langchain_tavily import TavilySearch
 
 load_dotenv()
 
-llm = ChatAnthropic(model="claude-sonnet-4-6")
-search = TavilySearch(max_results=5)
+llm = LLM(model="anthropic/claude-sonnet-4-6", max_tokens=4096)
+tavily = TavilySearch(max_results=5)
+
+@tool("Web search")
+def search(query: str) -> str:
+    """Searches the web and returns the most relevant results."""
+    return str(tavily.invoke({"query": query}))
 
 
 def build_crew_with_verifier(topic: str) -> dict:
